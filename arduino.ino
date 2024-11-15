@@ -103,69 +103,80 @@ void stop() {
     digitalWrite(in4, LOW);
 }
 
-/* Packet Listening Function
-   void ListenPacketRoutine(){
-      // Listens for incoming UDP packets
-      int packetSize = Udp.parsePacket();
-      if (packetSize) {
-          int len = Udp.read(incomingPacket, 255); // Read incoming packet data
-          Serial.printf("UDP packet contents: %s\n", incomingPacket); // Display packet content
+/* 
+  ListenPacketRoutine() - This function is designed to listen for incoming UDP packets.
+  - The function checks if a packet has arrived and reads it into `incomingPacket`.
+  - Based on the first character of the packet, it decides the robot's movement.
+  - For example, 'b' triggers forward, 'f' triggers backward, etc.
+  - This section is commented out because network control wasn't necessary during production.
 
-          // Check the first character in packet and call respective movement function
-          if (incomingPacket[0] == 'b') {
-              forward();
-          } else if (incomingPacket[0] == 'f') {
-              backward();
-          } else if (incomingPacket[0] == 'l') {
-              left();
-          } else if (incomingPacket[0] == 'r') {
-              right();
-          } else if (incomingPacket[0] == 's') {
-              stop();
-          }
+void ListenPacketRoutine(){
+  // Listens for incoming UDP packets
+  int packetSize = Udp.parsePacket();
+  if (packetSize) {
+      int len = Udp.read(incomingPacket, 255); // Read incoming packet data
+      Serial.printf("UDP packet contents: %s\n", incomingPacket); // Display packet content
+
+      // Check the first character in packet and call respective movement function
+      if (incomingPacket[0] == 'b') {
+          forward();
+      } else if (incomingPacket[0] == 'f') {
+          backward();
+      } else if (incomingPacket[0] == 'l') {
+          left();
+      } else if (incomingPacket[0] == 'r') {
+          right();
+      } else if (incomingPacket[0] == 's') {
+          stop();
       }
   }
+}
 */
 
-/* Serial Listening Function
-   void ListenKeyboardRoutine(){
-      // Listens for incoming serial data
-      if (Serial.available() > 0) {
-          incomingByte = Serial.read(); // Read the incoming byte
-      }
-   
-      switch(incomingByte) {
-          case 's':
-              stop();                   // Stop robot
-              Serial.println("Stop\n");
-              incomingByte='*';
-              break;
-
-          case 'f':
-              forward();                // Move forward
-              Serial.println("Forward\n");
-              incomingByte='*';
-              break;
-
-          case 'b':  
-              backward();               // Move backward
-              Serial.println("Backward\n");
-              incomingByte='*';
-              break;
-
-          case 'r':
-              right();                  // Rotate right
-              Serial.println("Rotate Right\n");
-              incomingByte='*';
-              break;
-
-          case 'l':
-              left();                   // Rotate left
-              Serial.println("Rotate Left\n");
-              incomingByte='*';
-              break;
-      }
+/* 
+  ListenKeyboardRoutine() - This function allows controlling the robot through keyboard inputs in the Serial Monitor.
+  - The function reads a character from serial input and calls the corresponding movement function.
+  - For instance, 's' triggers stop, 'f' triggers forward, and so on.
+  - This section is commented out because keyboard input was only needed during testing
+  
+void ListenKeyboardRoutine(){
+  // Listens for incoming serial data
+  if (Serial.available() > 0) {
+      incomingByte = Serial.read(); // Read the incoming byte
   }
+
+  switch(incomingByte) {
+      case 's':
+          stop();                   // Stop robot
+          Serial.println("Stop\n");
+          incomingByte='*';
+          break;
+
+      case 'f':
+          forward();                // Move forward
+          Serial.println("Forward\n");
+          incomingByte='*';
+          break;
+
+      case 'b':  
+          backward();               // Move backward
+          Serial.println("Backward\n");
+          incomingByte='*';
+          break;
+
+      case 'r':
+          right();                  // Rotate right
+          Serial.println("Rotate Right\n");
+          incomingByte='*';
+          break;
+
+      case 'l':
+          left();                   // Rotate left
+          Serial.println("Rotate Left\n");
+          incomingByte='*';
+          break;
+  }
+}
 */
 
 void loop() {
